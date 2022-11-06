@@ -21,7 +21,7 @@ import mods.jei.JEI.removeAndHide as rh;
 	recipes.addShaped("Rune of Sacrifice", <bloodmagic:blood_rune:3> * 3, 
 	[[<extrautils2:decorativesolid:3>, <bloodmagic:slate:1>, <extrautils2:decorativesolid:3>], 
 	[<bloodmagic:slate:1>, <ore:orbTier2>.reuse(), <bloodmagic:slate:1>],
-	[<extrautils2:decorativesolid:3>, <astralsorcery:itemcrystalsword>.anyDamage(), <extrautils2:decorativesolid:3>]]);
+	[<extrautils2:decorativesolid:3>, <astralsorcery:itemcrystalsword>.onlyDamageAtLeast(0), <extrautils2:decorativesolid:3>]]);
 
 # Rune of the orb
 	recipes.remove(<bloodmagic:blood_rune:8>);
@@ -69,14 +69,14 @@ import mods.jei.JEI.removeAndHide as rh;
 	recipes.remove(<bloodmagic:pack_self_sacrifice>);
 	recipes.addShaped("Blood Letter's Pack", <bloodmagic:pack_self_sacrifice>, 
 	[[<botania:managlass>, <botania:bloodpendant>, <botania:managlass>], 
-	[<minecraft:flint>, <minecraft:leather_chestplate>.anyDamage(), <minecraft:flint>], 
+	[<minecraft:flint>, <minecraft:leather_chestplate>.onlyDamageAtLeast(0), <minecraft:flint>], 
 	[<botania:managlass>, <bloodmagic:slate>, <botania:managlass>]]);
 
 # Coat of Arms
 	recipes.remove(<bloodmagic:pack_sacrifice>);
 	recipes.addShaped("Coat of Arms", <bloodmagic:pack_sacrifice>, 
 	[[<botania:managlass>, <minecraft:bucket>, <botania:managlass>], 
-	[<thermalfoundation:tool.sword_invar>.anyDamage(), <minecraft:leather_chestplate>, <thermalfoundation:tool.sword_invar>.anyDamage()], 
+	[<thermalfoundation:tool.sword_invar>.onlyDamageAtLeast(0), <minecraft:leather_chestplate>, <thermalfoundation:tool.sword_invar>.onlyDamageAtLeast(0)], 
 	[<botania:managlass>, <bloodmagic:slate>, <botania:managlass>]]);
 	
 # Sacrificial Dagger
@@ -84,7 +84,7 @@ import mods.jei.JEI.removeAndHide as rh;
 	recipes.addShaped("Sacrificial Dagger", <bloodmagic:sacrificial_dagger>, 
 	[[<botania:managlass>, <botania:managlass>, <botania:managlass>], 
 	[null, <thaumcraft:ingot:2>, <botania:managlass>], 
-	[<botania:enderdagger>.anyDamage(), null, <botania:managlass>]]);
+	[<botania:enderdagger>.onlyDamageAtLeast(0), null, <botania:managlass>]]);
 
 # Rudimentary Snare
 	recipes.remove(<bloodmagic:soul_snare>);
@@ -93,11 +93,6 @@ import mods.jei.JEI.removeAndHide as rh;
 	[<ore:ingotManasteel>, <ore:redstoneRoot>, <ore:ingotManasteel>], 
 	[<thaumcraft:fabric>, <ore:ingotManasteel>, <thaumcraft:fabric>]]);
 
-# Awakended Activation Crystal
-	recipes.remove(<bloodmagic:activation_crystal:1>);
-	mods.bloodmagic.TartaricForge.addRecipe(<bloodmagic:activation_crystal:1>, [<ore:gaiaIngot>, <astralsorcery:iteminfusedglass>.anyDamage(), <actuallyadditions:item_misc:19>, <thaumcraft:metal_void>], 2000, 500);
-	
-// output, input, altar tier, mb life essence, blood consumed per tick, blood drained per tick
 # Blank Slate
 	mods.bloodmagic.BloodAltar.removeRecipe(<minecraft:stone>);
 	mods.bloodmagic.BloodAltar.addRecipe(<bloodmagic:slate>, <botania:livingrock>, 0, 1000, 10, 10);
@@ -156,6 +151,14 @@ import mods.jei.JEI.removeAndHide as rh;
 	<ore:orbTier6>.add(<bloodmagic:blood_orb>.withTag({orb: "bloodmagic:transcendent"}));
 	
 # Remake recipe of blood tanks
+
+# [Blood Tank Tier 1] from [Glass][+2]
+craft.remake(<bloodmagic:blood_tank>, ["B","■","A"], {
+  "B": <bloodmagic:slate>,        # Blank Slate
+  "■": <ore:blockGlass>, # Glass
+  "A": <thaumcraft:stone_arcane>, # Arcane Stone
+});
+
 recipes.addShapeless("Clearing Blood Tank 0", <bloodmagic:blood_tank>, [<bloodmagic:blood_tank>]);
 for i in 1 to 16 {
 	val tank = itemUtils.getItem("bloodmagic:blood_tank", i);
